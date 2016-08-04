@@ -1,65 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Test</title>
-    <style>
-        div#main {
-            height: 300px;
-            width: 300px;
-            position: absolute;
-            margin: 0 auto;
-            transform: translate(-50%, -50%);
-            top: 50%;
-            left: 50%;
-        }
-        div.circle {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-        }
-        body {
-            margin: 0 auto;
-        }
-
-    </style>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="styles/tag-cloud.css">
 </head>
 <body>
-<div id="main"></div>
-<script>
-    var theta = [];
+<p>
+    Create a tag cloud:
+</p>
+<ul>
+    <li>Visualize a string of tags (strings) in a given container</li>
+    <li>By given minFontSize and maxFontSize, generate the tags with different font-size, depending on the number of occurrences</li>
+</ul>
+<input type='text' id='tags' placeholder='enter tags with comma'>
+<button onclick="tagCloudOnClickCreate()">Create Cloud</button>
 
-    var setup = function (n, r, id) {
-        var main = document.getElementById(id);
-        var mainHeight = parseInt(window.getComputedStyle(main).height.slice(0, -2));
-        var circleArray = [];
-        var colors = ['red', 'green', 'purple', 'black', 'orange', 'yellow', 'maroon', 'grey', 'lightblue', 'tomato', 'pink', 'maroon', 'cyan', 'magenta', 'blue', 'chocolate', 'darkslateblue', 'coral', 'blueviolet', 'burlywood', 'cornflowerblue', 'crimson', 'darkgoldenrod', 'olive', 'sienna', 'red', 'green', 'purple', 'black', 'orange', 'yellow', 'maroon', 'grey', 'lightblue', 'tomato', 'pink', 'maroon', 'cyan', 'magenta', 'blue', 'chocolate', 'darkslateblue', 'coral', 'blueviolet', 'burlywood', 'cornflowerblue', 'crimson', 'darkgoldenrod', 'olive', 'sienna'];
-        for (var i = 0; i < n; i++) {
-            var speed = 4;
-            var circle = document.createElement('div');
-            circle.className = 'circle number' + i;
-            circleArray.push(circle);
-            circleArray[i].posx = Math.round(r * (Math.cos(theta[i]+speed))) + 'px';
-            circleArray[i].posy = Math.round(r * (Math.sin(theta[i]+speed))) + 'px';
-            circleArray[i].style.position = "absolute";
-            circleArray[i].style.backgroundColor = colors[i];
-            circleArray[i].style.top = ((mainHeight / 2) - parseInt(circleArray[i].posy.slice(0, -2))) + 'px';
-            circleArray[i].style.left = ((mainHeight/ 2 ) + parseInt(circleArray[i].posx.slice(0, -2))) + 'px';
-            main.appendChild(circleArray[i]);
-        }
+<div id='tag-cloud'></div>
+<div id='js-console'></div>
+<script type="text/javascript" src='scripts/js-console.js'></script>
+<script type="text/javascript">
+
+    function tagCloudOnClickCreate() {
+        var tags = jsConsole.readArray('#tags',',');
+        document.getElementById('tag-cloud').innerHTML = '';
+        generateTagCloud(tags, 17, 42);
     };
 
-    var generate = function(n, r, id) {
-        var step = 360 / n;
-        for (var i = 0; i <= n; i++) {
-//            theta.push(((frags) / 180) * i * Math.PI);
-            theta.push(step / 180 * Math.PI * i);
+    function generateTagCloud(tags, minFontSize, maxFontSize) {
+        var tagsBySize = Array();
+        for (var i = 0; i < tags.length; i++) {
+            var tagValue = tags[i].toLowerCase();
+            if (tagsBySize[tagValue] === undefined) {
+                tagsBySize[tagValue] = 17;
+                this.size++;
+            } else {
+                if (tagsBySize[tagValue] < 42) {
+                    tagsBySize[tagValue] += 4;
+                };
+            }
         }
-        console.log(theta);
-        setup(n, r, id)
+        drawTags(tagsBySize);
+    };
+
+    function drawTags(tagsBySize) {
+        for (var tagName in tagsBySize) {
+            var newTag = document.createElement('span');
+            newTag.innerText = tagName;
+            newTag.style.fontSize = tagsBySize[tagName];
+            var tagCloud = document.getElementById('tag-cloud');
+            tagCloud.appendChild(newTag);
+        }
     }
-    generate(30, 250, 'main');
+
+    var sampleTags = ["cms", "javascript", "js", "ASP.NET MVC", ".net", ".net", "css", "wordpress", "xaml", "js", "http", "web", "asp.net", "asp.net MVC", "ASP.NET MVC", "wp", "javascript", "js", "cms", "html", "javascript", "http", "http", "CMS"];
+
+    generateTagCloud(sampleTags, 17, 42);
 </script>
 </body>
 </html>
