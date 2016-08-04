@@ -1,7 +1,7 @@
 /*
 
 4. Create a tag cloud:
-    * Visualize a string of tags (strings) in a given container
+* Visualize a string of tags (strings) in a given container
 * By given "minFontSize" and "maxFontSize", generate the tags with different "font-size", depending on the number of occurrences
 
 
@@ -15,3 +15,13 @@ var tags = [
 
 var tagCloud = generateTagCloud(tags, 17, 42);
 */
+var tags = ["cms", "javascript", "js", "ASP.NET MVC", ".net", ".net", "css", "wordpress", "xaml", "js", "http", "web", "asp.net", "asp.net MVC", "ASP.NET MVC", "wp", "javascript", "js", "cms", "html", "javascript", "http", "http", "CMS"];
+
+var tagCloud = generateTagCloud(tags, 17, 42);
+
+function generateTagCloud(tags, minFontSize, maxFontSize) {
+    var uniques = _.uniq(tags);
+
+    console.log(tags.sort());
+    console.log(uniques);
+}

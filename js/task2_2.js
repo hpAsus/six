@@ -61,8 +61,8 @@ function Rotator (optionsObj) {
             posX = Math.round(radius * (Math.cos(angle)) + (options.ballSize/2)) + 'px';
             posY = Math.round(radius * (Math.sin(angle)) - (options.ballSize/2)) + 'px';
 
-            circle.style.top  = ((rotatorHeight / 2) - parseInt(posX.slice(0, -2))) + 'px';
-            circle.style.left = ((rotatorHeight / 2) + parseInt(posY.slice(0, -2))) + 'px';
+            circle.style.top  = ((rotatorHeight / 2) - parseInt(posX.slice(0, -2),10)) + 'px';
+            circle.style.left = ((rotatorHeight / 2) + parseInt(posY.slice(0, -2),10)) + 'px';
 
         }
 

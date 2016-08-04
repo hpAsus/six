@@ -146,7 +146,7 @@ field = drawField(amountOfDivs);
 // Additional Window Resize effect to redraw divs
 //======================================================================================================================
 window.addEventListener('resize', function () {
-    //remove curent field
+    //remove current field
     field();
     // draw new field
     field = drawField(amountOfDivs);
