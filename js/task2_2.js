@@ -6,7 +6,7 @@ function Rotator (optionsObj) {
     var _defaults = {
         speed: 10, // in degress
         rotatorSize: 500,
-        amountElements: 20,
+        amountElements: 25,
         rotatorId: 'rotator',
         ballSize: 20,
         containerClass: 'rotator-contents'
@@ -33,10 +33,22 @@ function Rotator (optionsObj) {
     for (i = 0; i < options.amountElements; i++) {
         circle = document.createElement('div');
         circle.className = 'ball ball' + i;
-        //circle.style.background = getRandomColor();
+        circle.style.display = 'none';
+        circle.style.background = getRandomColor();
         circleArray.appendChild(circle);
     }
     rotatorDiv.appendChild(circleArray);
+
+    // Random Color Generator
+    //=================================================================================================
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    };
 
 
     return function () {
@@ -61,6 +73,7 @@ function Rotator (optionsObj) {
             posX = Math.round(radius * (Math.cos(angle)) + (options.ballSize/2)) + 'px';
             posY = Math.round(radius * (Math.sin(angle)) - (options.ballSize/2)) + 'px';
 
+            circle.style.display = 'block';
             circle.style.top  = ((rotatorHeight / 2) - parseInt(posX.slice(0, -2),10)) + 'px';
             circle.style.left = ((rotatorHeight / 2) + parseInt(posY.slice(0, -2),10)) + 'px';
 
@@ -72,15 +85,5 @@ function Rotator (optionsObj) {
 }
 
 var rotator = new Rotator();
-//rotator();
 setInterval( rotator, 100 );
 
-
-function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++ ) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-};

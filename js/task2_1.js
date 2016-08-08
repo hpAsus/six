@@ -111,6 +111,7 @@ function drawField(numberElements) {
 
     for (i = 0; i < amount; i++) {
 
+        // we can define some special settings
         settings = {
             //blockContentsText: 'JS'
         };

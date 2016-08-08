@@ -12,30 +12,33 @@ see example in "http://i.imgur.com/cqaTqTC.png"
 
 (function () {
 
-    var events = ['expand', 'collapse'];
-    var menuId = 'treeview';
-    var itemsLi = '#' + menuId + ' > li';
-    var menu = document.getElementById(menuId);
-    var items = menu.getElementsByTagName('li');
+    var _options = {
+        menuId: 'treeview',
+        menuItemActiveClass: 'active',
+        hideClass: 'hide'
+    };
 
-    // closing submenus on start
-    _.forEach(items, function (item) {
-        var children = item.children;
-        if (children.length) {
-            children[0].className = 'hide';
-            console.log(children[0]);
-        }
+    var menu = document.getElementById(_options.menuId);
+    var items = menu.children;
 
-        item.style.cursor = 'pointer';
-
-        item.addEventListener('click', function(ev) {
-            var child = this.children[0];
-
-            if (this.children.length) {
-                //console.log(child);
-                child.classList.toggle('hide');
+    // Hiding all child elements
+    if (items.length) {
+        _.forEach(items, function (item) {
+            //console.log(item);
+            if (item.children.length) {
+                item.className = _options.menuItemActiveClass;
+                item.children[0].className = _options.hideClass;
             }
         });
+    }
+
+    // Adding Event Listener
+    menu.addEventListener('click', function(ev) {
+        var clicked = ev.target;
+        if (clicked.children.length) {
+            clicked.children[0].classList.toggle('hide');
+        }
+        console.log();
     });
 
 })();
